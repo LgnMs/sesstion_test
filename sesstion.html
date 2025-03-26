@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div>sesstion: <P id="sesstion"></P></div>
+    <button id="addSesstion">sesstion + 1</div>
+    <button id="refreshSesstion">refresh sesstion</div>
+    <button id="open">open new tab</div>
+
+    <script>
+        showSesstion()
+        function showSesstion() {
+            const a = sessionStorage.getItem('test-sesstion')
+            document.getElementById('sesstion').innerText = a
+        }
+
+        function updateSesstion() {
+            let a = sessionStorage.getItem('test-sesstion')
+            if (!a) {
+                a = 1 + '---' + '{"mcf_token":"eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImFwcF9pZCI6IjRlMDUxZWMyLTAxNzItNDRmNy1iNzViLTIwY2ZiZGVjNzA3MCJ9.eyJpc3MiOiI0ZTA1MWVjMi0wMTcyLTQ0ZjctYjc1Yi0yMGNmYmRlYzcwNzAiLCJhdWQiOiJoay1hZG8tZ2F0ZXdheSIsInN1YiI6ImEyM2NlNDllLTE4MWItMzJkNS04OTI4LTk5ZGZiMWFkMDhiZSIsImlhdCI6MTc0MjQ1NjM0MSwiZXhwIjoxNzQyNDU3MjQxLCJhdXRoIjpbIlNUQUZGX1BSRVZJRVciXSwianRpIjoiYjM4YzkxMTgtMGNjNy00YmVmLTgxN2QtNzU1Y2VjMjZjYTg5In0.Xl1OMZerSf0zL6t2YGfdywSekX7mMvzGTSJ0YH6WSXM-Q7tdk6LGSXJfCtBtDhrHwC_Apx893PWpT4oVAP54NhaRWSj26KPXhp2k6kcEpy72t2yC3DFXbLhSaXe4HBoXpP4PQPcd9c4Tk_RHYEOY17Xawj7oWjzXIScE5HMbhmXe-E9XNOWZxeOX1bvJRATKluv7Odp3LxLhE2wrEXGvumYMSbibWGu86X-0emfFIjpF-xT5-x7iymb5AArGTPtlJnM5Uf2J4_w9ddFCX8PpeMAK81D_wDRCf6cqHta69ZZRzQhOlE4cWdxpcCGElWgE6YaSQ4XLR1StpmErjWph0w","staff_name":"lidanil","sessionId":"a23ce49e-181b-32d5-8928-99dfb1ad08be","role":""}'
+            }
+            const [b, c] = a.split('---')
+            const d = Number(b) + 1
+
+            sessionStorage.setItem('test-sesstion', d + '---' + c)
+            showSesstion()
+        }
+
+        document.getElementById('refreshSesstion').addEventListener('click', showSesstion)
+        document.getElementById('addSesstion').addEventListener('click', updateSesstion)
+
+        const openTab = (tabName, url) => {
+            if (!window.customerOpenedTabs) {
+                window.customerOpenedTabs = {}
+            }
+            const tab = window.customerOpenedTabs[tabName]
+            if (tab) {
+                tab.close()
+            }
+            const newTab = window.open(url)
+            window.customerOpenedTabs[tabName] = newTab
+        }
+        document.getElementById('open').addEventListener('click', () => {
+            openTab('new tab', '/sesstion-show.html')
+        })
+    </script>
+</body>
+</html>
